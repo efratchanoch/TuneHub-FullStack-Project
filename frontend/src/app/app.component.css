@@ -1,0 +1,46 @@
+/* Favorites */
+.fixed-favorites-button {
+    position: fixed;
+    bottom: 120px;
+    right: 55px;
+    background-image: linear-gradient(135deg, #9238ff 0%, #5000b2 100%);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    padding: 15px;
+    font-size: 16px;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    z-index: 50;
+    transition: all 0.2s ease-in-out;
+}
+
+.fixed-favorites-button:hover {
+    background-image: linear-gradient(315deg, #450099 0%, #260055 100%);
+}
+
+
+/* Sidenav */
+mat-sidenav {
+    background-color: #1D2838;
+    color: white;
+}
+
+mat-sidenav mat-list-item {
+    color: white;
+}
+
+mat-sidenav mat-icon {
+    color: white;
+}
+
+mat-sidenav {
+    box-shadow: 8px 0 30px rgba(0, 0, 0, 0.6);
+}
+
+.cdk-overlay-backdrop.mat-drawer-backdrop {
+    background-color: rgba(0, 0, 0, 0.962) !important;
+}

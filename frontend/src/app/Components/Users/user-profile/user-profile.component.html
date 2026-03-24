@@ -1,0 +1,272 @@
+<div class="profile-container" *ngIf="profileData">
+  <!-- <pre>{{ profileData | json }}</pre> -->
+
+  <!-- HEADER & COVER IMAGE -->
+  <header class="header">
+    <div class="cover-wrapper">
+      <img src="./assets/images/3.jpg" class="cover-image" />
+      <div class="overlay-content">
+        <div class="header-inner-content">
+          <!-- PROFILE INFO -->
+          <div class="profile-info-section">
+            <div class="profile-left">
+              <div class="profile-picture-wrapper">
+                <img [src]="fileUtilsService.getImageUrl(profileData.imageProfilePath)" alt="Profile Picture"
+                  class="profile-image">
+                @if(profileData.active){
+                <span class="active-dot"></span>
+                }@else {
+                <span class="inactive-dot"></span>
+                }
+              </div>
+
+              <div class="user-details">
+                <div class="name">
+                  <h2>{{ profileData.name }}</h2>
+                  <p>Joined TuneHub: {{ createdAtDate! | timeAgo }} |</p>
+                  <p *ngIf="editedInDate">Edited: {{ editedInDate! | timeAgo }}</p>
+                </div>
+
+                <!-- CONTACT INFO -->
+                <div class="contact-details">
+                  <span *ngIf="profileData.city && profileData.country" class="location">
+                    <mat-icon>location_on</mat-icon>
+                    {{ profileData.city }}, {{ profileData.country }}
+                  </span>
+                  <span *ngIf="profileData.email" class="website">
+                    <mat-icon>email</mat-icon>
+                    <a [href]="getGmailLink()" target="_blank">{{ profileData.email }}</a>
+                  </span>
+                </div>
+
+                <div class="user-tags" *ngIf="profileData.userTypes.length">
+                  <span *ngFor="let type of profileData.userTypes" [ngClass]="getTagClass(type)">
+                    {{ type.toUpperCase().replace('_',' ') }}
+                  </span>
+                </div>
+
+                <!-- USER RATING -->
+                <!-- <div class="user-rating-container" *ngIf="profileData.rating">
+          <span class="rating-value">{{ profileData.rating | number:'1.1-1' }}</span>
+          <div class="stars">
+            <mat-icon *ngFor="let starType of getStarArray()" [ngClass]="{'filled': starType !== 'star_border'}">{{
+              starType }}</mat-icon>
+          </div>
+        </div> -->
+
+              </div>
+            </div>
+
+            <!-- ACTION BUTTONS -->
+            <br> <br>
+            <div class="action-buttons">
+              <!-- Own profile actions -->
+              <ng-container *ngIf="isOwnProfile">
+
+                <!-- edit-btn -->
+                <div class="button" (click)="openEditProfileModal()">
+                  <mat-icon>edit</mat-icon> Edit Profile
+                </div>
+
+                <!-- signout-btn -->
+                <div class="button" (click)="handleSignOut()">
+                  <mat-icon>logout</mat-icon> Sign Out
+                </div>
+              </ng-container>
+
+
+              <!-- Student actions for teachers -->
+              <div class="button student" *ngIf="canBeStudent" mat-raised-button color="primary"
+                (click)="joinAsStudent()">
+                <mat-icon>{{ isStudentOfThisTeacher ? 'check_circle' : 'school' }}</mat-icon>
+                {{ isStudentOfThisTeacher ? ' Student Assigned' : ' Add Student' }}
+              </div>
+
+              <!-- Admin actions -->
+              <ng-container *ngIf="showAdminActions">
+                <button mat-icon-button [matMenuTriggerFor]="adminMenu">
+                  <mat-icon>more_vert</mat-icon>
+                </button>
+                <mat-menu #adminMenu="matMenu">
+                  <button mat-menu-item (click)="assignAdminRole()">
+                    <mat-icon>admin_panel_settings</mat-icon> Make Admin
+                  </button>
+                  <button mat-menu-item (click)="assignSuperAdminRole()">
+                    <mat-icon>verified_user</mat-icon> Make Super Admin
+                  </button>
+                </mat-menu>
+              </ng-container>
+
+              <button *ngIf="profileData.canDelete" mat-raised-button color="warn" (click)="deleteUser()">
+                <mat-icon>delete_forever</mat-icon> Delete User
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+
+
+  <!-- </section> -->
+
+  <div class="container2">
+    <div class="stats-wrapper" dir="ltr">
+      <div class="stats-card-container">
+        <div class="stats-card" dir="ltr">
+          <app-stats-counter [number]="profileData.totalLikes" label="Likes Received" glowClass="purple-glow">
+          </app-stats-counter>
+          <app-stats-counter [number]="profileData.totalHearts" label="Times Favorited" glowClass="blue-glow">
+          </app-stats-counter>
+          <app-stats-counter [number]="profileData.totalCommentsReceived" label="Comments Received"
+            glowClass="green-glow">
+          </app-stats-counter>
+          <app-stats-counter [number]="profileData.totalCommentsWritten" label="Comments Written"
+            glowClass="green-glow">
+          </app-stats-counter>
+        </div>
+      </div>
+    </div>
+
+    <!-- DESCRIPTION -->
+    <h2 class="section-title "> <mat-icon style=" color: #B8860B;">description</mat-icon> Description </h2>
+    @if(profileData.description ){
+    <span class="description">{{ profileData.description }}</span>
+
+    }@else{
+    <p style="color: gray;">The user has not added a description yet. </p>
+
+    }
+
+    <!-- My TEACHER -->
+    @if(profileData.teacher != null){
+    <br>
+    <h2 class="section-title "> <mat-icon style=" color: #B8860B;">man</mat-icon> My Teacher </h2>
+    <div class="student-card">
+      <img [src]="fileUtilsService.getImageUrl(profileData.teacher.imageProfilePath)"
+        (click)="navigationService.goToProfile(profileData.teacher.id) " alt="{{profileData.teacher.name}}"
+        class="student-image">
+      <br>
+      <span class="student-name">{{ profileData.teacher.name }}</span>
+    </div>
+    }
+
+    <!-- STUDENTS -->
+    @if(profileData.teacherDetails){
+    <br>
+    <h2 class="section-title "> <mat-icon style=" color: #B8860B;">people</mat-icon> My Students </h2>
+
+    @if(profileData.teacherDetails.students.length != 0){
+    <div class="students-list">
+      <div *ngFor="let student of profileData.teacherDetails.students!" class="student-card">
+        <img [src]="fileUtilsService.getImageUrl(student.imageProfilePath)"
+          (click)="navigationService.goToProfile(student.id) " alt="{{student.name}}" class="student-image">
+        <br>
+        <span class="student-name">{{ student.name }}</span>
+      </div>
+    </div>
+    }
+    @else {
+    <app-no-results></app-no-results>
+    <br>
+
+    }
+    }
+
+    <br> <br>
+
+    <!-- TABS -->
+    <h2 class="section-title "> <mat-icon style=" color: #B8860B;">upload</mat-icon> Uploaded content </h2>
+    <div class="profile-tabs">
+      @if(profileData.teacherDetails){
+      <button [class.active]="activeTab==='teacher'" (click)="setActiveTab('teacher')">
+        <i class="material-icons">person_outline</i> Teacher Details
+      </button>
+      }
+      <button [class.active]="activeTab==='posts'" (click)="setActiveTab('posts')">
+        <i class="material-icons">chat_bubble_outline</i> Posts ({{ posts.length || 0 }})
+      </button>
+      <button [class.active]="activeTab==='tracks'" (click)="setActiveTab('tracks')">
+        <i class="material-icons">music_note</i> Tracks ({{ tracks.length || 0 }})
+      </button>
+      <button [class.active]="activeTab==='movies'" (click)="setActiveTab('movies')">
+        <i class="material-icons">videocam</i> Videos ({{ videos.length || 0 }})
+      </button>
+      <button [class.active]="activeTab==='sheets'" (click)="setActiveTab('sheets')">
+        <i class="material-icons">description</i> Sheets ({{ sheets.length || 0 }})
+      </button>
+    </div>
+
+
+    <!-- TAB CONTENT -->
+    <div class="tab-content">
+      <div *ngIf="activeTab==='teacher'" class="teacher-details">
+        <br><br>
+        <h3>
+          <span class="teacher-name">
+            {{ profileData.name }}
+          </span>'s Teacher Details
+        </h3>
+
+        <div *ngIf="profileData.teacherDetails">
+          <p *ngIf="profileData.teacherDetails.experience"><mat-icon>trending_up</mat-icon> <strong>Experience:</strong>
+            {{
+            profileData.teacherDetails.experience }} years</p>
+          <p *ngIf="profileData.teacherDetails.lessonDuration"><mat-icon>schedule</mat-icon> <strong>Lesson
+              Duration:</strong> {{
+            profileData.teacherDetails.lessonDuration }} min</p>
+          <p *ngIf="profileData.teacherDetails.pricePerLesson"><mat-icon>paid</mat-icon> <strong>Price Per
+              Lesson:</strong> ₪{{
+            profileData.teacherDetails.pricePerLesson }}</p>
+          <p *ngIf="profileData.teacherDetails.instruments!.length"><mat-icon>piano</mat-icon> <strong>Teaches:</strong>
+            <span class="instrument-tags">
+              <span class="tag" *ngFor="let instrument of profileData.teacherDetails.instruments">
+                {{ instrument.name }}
+              </span>
+            </span>
+          </p>
+        </div>
+
+        <div *ngIf="profileData.rating">
+          <strong>Rating:</strong> {{ profileData.rating | number:'1.1-1' }}
+          <span *ngFor="let starType of getStarArray()">
+            <mat-icon [ngClass]="{'filled': starType !== 'star_border'}">{{ starType }}</mat-icon>
+          </span>
+        </div>
+      </div>
+
+      <div *ngIf="activeTab==='posts'">
+        <ng-container *ngFor="let post of posts">
+          <app-post-card [post]="post" [isProfileView]="true"></app-post-card>
+        </ng-container>
+        <br> <br> <br> <br>
+        <app-no-results *ngIf="posts.length === 0"></app-no-results>
+      </div>
+
+      <div *ngIf="activeTab==='tracks'">
+        <ng-container *ngFor="let track of tracks">
+          <app-post-card [post]="track" [isProfileView]="true"></app-post-card>
+        </ng-container>
+        <br> <br> <br> <br>
+        <app-no-results *ngIf="tracks.length === 0"></app-no-results>
+      </div>
+
+      <div *ngIf="activeTab==='movies'">
+        <ng-container *ngFor="let video of videos">
+          <app-post-card [post]="video" [isProfileView]="true"></app-post-card>
+        </ng-container>
+        <br> <br> <br> <br>
+        <app-no-results *ngIf="videos.length === 0"></app-no-results>
+      </div>
+
+      <div *ngIf="activeTab==='sheets'">
+        <ng-container *ngFor="let sheet of sheets">
+          <app-music-card [sheet]="sheet"></app-music-card>
+        </ng-container>
+        <br> <br> <br> <br>
+        <app-no-results *ngIf="sheets.length === 0"></app-no-results>
+      </div>
+    </div>
+  </div>

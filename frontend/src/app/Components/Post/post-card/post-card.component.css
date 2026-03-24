@@ -1,0 +1,253 @@
+/* variables */
+:root {
+    --bg-main: #1C2737;
+    --bg-card: #1D2838;
+    --accent-purple: #8000ff;
+    --accent-blue: #4b2fff;
+    --text-light: #ffffff;
+    --text-muted: #aaa;
+}
+
+/* layout body */
+body {
+    background-color: var(--bg-main);
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+/* posts container */
+.posts-container {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+}
+
+/* post card */
+.post-card {
+    width: 100%;
+    max-width: 800px;
+    background-color: var(--bg-card);
+    border: 1px solid var(--accent-purple);
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.4);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    box-sizing: border-box;
+}
+
+/* post header */
+.post-header {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    gap: 15px;
+}
+
+/* שמאל: avatar + info */
+.avatar {
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    object-fit: cover;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.user-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 2px;
+}
+
+.username {
+    font-size: 18px;
+    font-weight: bold;
+    color: var(--text-light);
+    line-height: 1.2;
+}
+
+.date {
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.2;
+}
+
+/* רייטינג */
+.rating-stars {
+    margin-left: auto; /* דוחף ימינה */
+    display: flex;
+    align-items: center;
+    gap: 2px;
+}
+
+.rating-stars mat-icon {
+    font-size: 18px;
+    color: #b0b0c0;
+}
+
+.rating-stars .filled-star {
+    color: #ffc107;
+}
+
+/* post body */
+.post-body {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.post-title {
+    font-size: 22px;
+    font-weight: bold;
+    color: var(--text-light);
+}
+
+.post-content {
+    font-size: 17px;
+    color: #ddd;
+}
+
+/* media */
+.post-media {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.post-media img,
+.post-media audio,
+.post-media video {
+    width: 100%;
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+/* footer: like + hearts */
+.post-footer {
+    display: flex;
+    align-items: center;
+    gap: 12px; /* רווח בין הלייק ללב */
+}
+
+.stat-item {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    cursor: pointer;
+    padding: 6px 10px; /* מספיק ללחיצה */
+    border-radius: 6px;
+    transition: background 0.2s;
+}
+
+.stat-item:hover {
+    background-color: rgba(255,255,255,0.1);
+}
+
+/* admin buttons */
+.post-actions-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* שמאל */
+    gap: 4px;
+}
+
+.admin-actions-dropdown {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-top: 2px;
+}
+
+.action-btn {
+    display: inline-flex; /* רק סביב תוכן הכפתור */
+    align-items: center;
+    gap: 4px;
+    padding: 6px 10px;
+    border-radius: 6px;
+    background-color: #2a3550;
+    color: #fff;
+    cursor: pointer;
+    border: none;
+    transition: background 0.2s;
+}
+
+.action-btn:hover {
+    background-color: var(--accent-blue);
+}
+
+/* comments */
+.comments-wrapper {
+    width: 100%;
+    max-height: 355px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.comments-actions-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.view-comments-btn,
+.add-comment-btn {
+    background-color: #2563EB;
+    color: #F9FAFB;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    display: inline-flex; 
+    align-items: center;
+    gap: 6px;
+    transition: 0.3s;
+}
+
+.view-comments-btn:hover,
+.add-comment-btn:hover {
+    background-color: #3B82F6;
+}
+
+/* responsive */
+@media (max-width: 768px) {
+    .post-card {
+        padding: 20px;
+    }
+
+    .post-title {
+        font-size: 20px;
+    }
+
+    .post-content {
+        font-size: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .post-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+.comment-item hr {
+    display: none;
+}

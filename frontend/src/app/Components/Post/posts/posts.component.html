@@ -1,0 +1,82 @@
+<div class="container">
+
+    <div class="cover-wrapper">
+        <img src="./assets/images/posts.jpg" class="cover-image" />
+        <div class="overlay-content">
+            <div class="header-inner-content">
+                <div class="title-section">
+                    <h1 class="musicians" style="font-size:60px;">Posts & Vibes</h1>
+                    <p style="font-size:25px;color:#fff">Create, share, and see the world through others' eyes</p>
+                </div>
+
+                <button class="button join-network-btn" (click)="navigateToUpload()">
+                    Upload Post
+                    <mat-icon>upload</mat-icon>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="container2">
+        <div class="stats-wrapper">
+            <div class="stats-card-container">
+                <div class="stats-card" dir="ltr">
+
+                    <app-stats-counter [number]="originalPosts.length" label="Total Post" glowClass="purple-glow">
+                    </app-stats-counter>
+
+                    <app-stats-counter [number]="getTodaysPostsCount()" label="New From Today" glowClass="blue-glow">
+                    </app-stats-counter>
+                </div>
+            </div>
+        </div>
+        <h2 class="section-title "> <mat-icon style=" color: #B8860B;">filter_alt</mat-icon> Advanced filters </h2>
+        <section class="search-bar">
+
+            <div class="search-container" onclick="document.getElementById('q2').focus()">
+                <mat-icon>search</mat-icon>
+                <input id="q2" class="search-input" type="search" placeholder="Search posts" [(ngModel)]="searchText"
+                    (ngModelChange)="onSearchChange($event)" />
+
+
+
+            </div>
+
+            <select class="dropdown"           [(ngModel)]="selectedTimeRange"             (change)="applyAllFilters()">
+                                <option value="All">All times</option>
+                                <option value="Today">Current Day</option>
+                                <option value="Week">Current Week</option>
+                                <option value="Month">Current Month</option>
+                        </select>
+
+            <!--         <select class="dropdown">
+                <option>All</option>
+            </select> -->
+
+
+        </section>
+
+        @if (hasMorePosts) {
+        <div class="load-more-container">
+            <button class="button load-more-btn" (click)="loadMore()">
+                load more posts <mat-icon>expand_more</mat-icon>
+            </button>
+        </div>
+        }
+        <h2 class="section-title "> <mat-icon style=" color: #B8860B;">description</mat-icon> Posts </h2>
+
+        @if(displayedPosts.length===0){
+        <app-no-results></app-no-results>
+        }
+        @else{
+
+        @for (post of displayedPosts; track post.id) {
+        <app-post-card [post]="post" [isProfileView]="isProfileView" [showOnlyMedia]="showOnlyMedia"
+            [searchText]="searchText">
+        </app-post-card>
+
+        <br><br>
+        }
+        }
+        <br><br><br>
+    </div>

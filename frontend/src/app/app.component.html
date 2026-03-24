@@ -1,0 +1,33 @@
+<app-header></app-header>
+
+<!-- Material Sidenav Container -->
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #sidenav mode="over" [opened]="sidebarService.isOpen()" style="height: 520px;">
+    <app-sidebar></app-sidebar>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <main class="pt-16 min-h-screen bg-gray-50">
+      <router-outlet></router-outlet>
+      <button class="fixed-favorites-button" (click)="favoritesService.toggle()"><mat-icon>favorite</mat-icon></button>
+      <app-chat-bot></app-chat-bot>
+
+      @if(favoritesService.isOpen()){
+      <app-favorites></app-favorites>
+
+      }
+
+    </main>
+
+    <app-footer></app-footer>
+
+  </mat-sidenav-content>
+</mat-sidenav-container>
+<app-login-window></app-login-window>
+
+<ng-container *ngIf="commentModal.isOpen$ | async">
+  <div class="modal-overlay" (click)="commentModal.close()"></div>
+  <div class="add-comment-modal" (click)="$event.stopPropagation()">
+    <app-add-comment></app-add-comment>
+  </div>
+</ng-container>

@@ -1,0 +1,58 @@
+<footer class="tunehub-footer">
+  <div class="footer-main">
+    <div class="footer-logo-section">
+      <mat-icon class="footer-logo-icon">music_note</mat-icon>
+      <div class="footer-tagline">
+        <h1>TuneHub</h1>
+        <p>Play. Share. Grow.</p>
+        <p>The professional platform connecting musicians worldwide. Create, collaborate, and grow your musical career.
+        </p>
+      </div>
+    </div>
+
+    <div class="footer-columns">
+      <div class="footer-column">
+        <h4>Platform</h4>
+        <ul>
+          <li><a routerLink="/home-page" routerLinkActive="active-link">Home</a></li>
+          <li><a routerLink="/posts" routerLinkActive="active-link">Posts & Vibes</a></li>
+          <li><a routerLink="/sheets-music" routerLinkActive="active-link">Sheets Music</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-column">
+        <h4>Learn & Grow</h4>
+        <ul>
+          <li><a routerLink="/teacher-list" routerLinkActive="active-link">Teachers</a></li>
+          <li><a routerLink="/musicians" routerLinkActive="active-link">Find Musicians</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-column">
+        <h4>Extras</h4>
+        <ul>
+          <li><a (click)="favoritesService.open()">Favorites</a></li>
+          <li><a (click)="chatBotService.toggle()">Chat Bot</a></li>
+          <!-- <li><a routerLink="/notification" routerLinkActive="active-link">Notification</a></li> -->
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-social">
+    <div class="social-icons">
+      <a routerLink="/facebook"><mat-icon>facebook</mat-icon></a>
+      <a routerLink="/twitter"><mat-icon>public</mat-icon></a>
+      <a routerLink="/instagram"><mat-icon>photo_camera</mat-icon></a>
+      <a routerLink="/youtube"><mat-icon>play_circle</mat-icon></a>
+      <a routerLink="/linkedin"><mat-icon>linkedin</mat-icon></a>
+    </div>
+  </div>
+
+  <div class="footer-download">
+  </div>
+
+  <div class="footer-bottom">
+    <p>&copy; 2025 TuneHub Professional. Version 2.0</p>
+  </div>
+</footer>

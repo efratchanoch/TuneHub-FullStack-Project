@@ -1,0 +1,227 @@
+/* Search Bar */
+.search-bar {
+  display: grid;
+  grid-template-columns: 2fr repeat(2, 1fr) 0.5fr;
+  gap: 10px;
+  background-color: #1e1e2d;
+  padding: 15px;
+  border-radius: 8px;
+  align-items: center;
+}
+
+/* Search Input Group */
+.search-input-group {
+  display: flex;
+  align-items: center;
+  background-color: #2b3a52;
+  border-radius: 4px;
+  padding: 5px 10px;
+}
+
+.search-input-group input {
+  background: none;
+  border: none;
+  color: #f0f0f0;
+  padding: 5px;
+  flex-grow: 1;
+}
+
+.search-icon {
+  margin-right: 10px;
+}
+
+/* Filter Controls */
+.dropdown,
+.filters-btn {
+  padding: 10px;
+  border-radius: 4px;
+  border: none;
+  background-color: #2b3a52;
+  color: #f0f0f0;
+  cursor: pointer;
+}
+
+.filters-btn {
+  font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Additional Filters */
+.additional-filters {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  padding: 20px 15px;
+  margin-top: 10px;
+  background-color: #1e1e2d;
+  border-radius: 8px;
+}
+
+.filter-group label {
+  display: block;
+  margin-bottom: 5px;
+  color: #aaaaaa;
+}
+
+.filter-group .dropdown {
+  width: 100%;
+}
+
+/* Browse Categories Section */
+.browse-categories-section {
+    padding: 20px 0;
+    margin-bottom: 30px;
+}
+
+/* Section Title */
+.section-title {
+    color: var(--text-color-light, #ffffff);
+    font-size: 1.8em;
+    font-weight: 600;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+/* Category Grid */
+.category-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
+    gap: 15px;
+}
+
+.category-card {
+    background-color: var(--card-background, #1e1e1e);
+    border-radius: 12px;
+    padding: 20px;
+    cursor: pointer;
+    position: relative;
+    border: 1px solid transparent;
+    transition: all 0.2s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 150px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.category-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Selected Category Card */
+.category-card.selected {
+    border-color: var(--primary-color, #bb86fc);
+    background: linear-gradient(135deg, #2a0a4c 0%, var(--card-background, #1e1e1e) 100%);
+}
+
+/* All Categories Selected Card */
+.all-categories-card.selected {
+    background: linear-gradient(135deg, #3700b3 0%, #1e1e1e 100%);
+    border-color: #bb86fc;
+}
+
+/* Category Icon Wrapper */
+.category-icon-wrapper {
+    width: 48px;
+    height: 48px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+    color: var(--text-color-light, #ffffff);
+    font-size: 1.5em;
+    background-color: #444; 
+}
+
+.all-categories-card .category-icon-wrapper {
+    background: linear-gradient(45deg, #3700b3, #8a2be2);
+}
+
+.category-name {
+    font-size: 1.1em;
+    font-weight: 600;
+    color: var(--text-color-light, #ffffff);
+    margin: 5px 0;
+}
+
+.category-desc {
+    color: var(--text-color-faded, #a0a0a0);
+    font-size: 0.85em;
+    margin: 0;
+}
+
+.sheet-count {
+    display: block;
+    color: var(--text-color-faded, #a0a0a0);
+    font-size: 0.9em;
+    margin-top: 5px;
+    font-weight: 500;
+}
+
+/* Check Icon */
+.check-icon {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    color: var(--primary-color, #bb86fc);
+    font-size: 1.2em;
+}
+
+/* Responsive: Tablet */
+@media (max-width: 768px) {
+    .category-grid {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    }
+}
+/* Responsive: Mobile */
+@media (max-width: 500px) {
+    .category-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+    .category-card {
+        min-height: 120px;
+        padding: 15px;
+    }
+}
+
+
+.sheet-music-container {
+  display: grid;
+  gap: 18px;
+  grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+}
+
+
+/* Stats Wrapper */
+.stats-wrapper {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+/* Stats Title */
+.stats-title {
+    font-size: 26px;
+    font-weight: 600;
+    margin-bottom: 15px;
+    color: #e5e7eb; 
+    text-shadow: 0 0 6px rgba(200, 200, 255, 0.3);
+    letter-spacing: 0.5px;
+    animation: fadeInUp 0.8s ease forwards;
+    opacity: 0;
+}
+
+/* Fade In Up Animation */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

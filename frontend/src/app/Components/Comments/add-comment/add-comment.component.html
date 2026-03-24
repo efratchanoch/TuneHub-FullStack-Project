@@ -1,0 +1,17 @@
+<div class="modal-overlay" [hidden]="!(isOpen$ | async)" (click)="close()"></div>
+<div class="add-comment-modal" [hidden]="!(isOpen$ | async)">
+  <div class="modal-header">
+    <h2>Add comment</h2>
+    <button class="close-btn" (click)="close()">
+      <mat-icon style="color: #7867ff;">close</mat-icon>
+    </button>
+  </div>
+
+<form (ngSubmit)="submitCommentWrapper()">
+  <textarea [(ngModel)]="commentContent" name="commentContent" rows="6" required></textarea>
+  <button class="button" type="submit" [disabled]="isUploading || !commentContent.trim()">
+    {{ isUploading ? 'Sending...' : 'Publish Comment' }}
+  </button>
+</form>
+</div>
+

@@ -1,0 +1,24 @@
+package com.example.tunehub.mapper;
+
+import com.example.tunehub.dto.user.UsersProfileCompleteDTO;
+import com.example.tunehub.model.Users;
+import com.example.tunehub.repository.FavoriteRepository;
+import com.example.tunehub.repository.LikeRepository;
+import org.mapstruct.Context;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+
+@Mapper(componentModel = "spring", uses = {InstrumentMapper.class, SheetMusicMapper.class, PostMapper.class, TeacherMapper.class})
+public interface UsersProfileCompleteMapper {
+    @Mapping(target = "ownProfile", ignore = true)
+    @Mapping(target = "canBeMyStudent", ignore = true)
+    @Mapping(target = "myStudent", ignore = true)
+    @Mapping(target = "canEditRoles", ignore = true)
+    @Mapping(target = "canDelete", ignore = true)
+    @Mapping(target = "teacherDetails", source = "teacher")
+    @Mapping(target = "teacher", source = "teacher.user")
+    UsersProfileCompleteDTO toDto(Users user,
+                                  @Context Long currentUserId,
+                                  @Context LikeRepository likeRepo,
+                                  @Context FavoriteRepository favRepo);
+}

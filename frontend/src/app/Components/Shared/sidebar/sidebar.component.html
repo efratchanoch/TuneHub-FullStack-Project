@@ -1,0 +1,43 @@
+<div class="p-4">
+  <div class="flex justify-end mb-2">
+    <button mat-icon-button (click)="sidebarService.close()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <br> <br> <br> <br>
+  <mat-nav-list>
+    <a mat-list-item routerLink="/home-page" routerLinkActive="active" (click)="sidebarService.close()">
+      <mat-icon matListItemIcon style="color: rgb(255, 255, 255); margin-left: 2vw;">home</mat-icon>
+      <span matListItemTitle style="color: rgb(255, 255, 255);">Home</span>
+    </a>
+    <a mat-list-item routerLink="/musicians" routerLinkActive="active" (click)="sidebarService.close()">
+      <mat-icon matListItemIcon style="color: rgb(255, 255, 255); margin-left: 2vw;">person_add</mat-icon>
+      <span matListItemTitle style="color: rgb(255, 255, 255);">Find Musicians</span>
+    </a>
+    <a mat-list-item routerLink="/posts" routerLinkActive="active" (click)="sidebarService.close()">
+      <mat-icon matListItemIcon style="color: rgb(255, 255, 255); margin-left: 2vw;">description</mat-icon>
+      <span matListItemTitle style="color: rgb(255, 255, 255);">Posts</span>
+    </a>
+    <a mat-list-item routerLink="/sheets-music" routerLinkActive="active" (click)="sidebarService.close()">
+      <mat-icon matListItemIcon style="color: rgb(255, 255, 255); margin-left: 2vw;">music_note</mat-icon>
+      <span matListItemTitle style="color: rgb(255, 255, 255);">Sheet Music</span>
+    </a>
+    <a mat-list-item routerLink="/teacher-list" routerLinkActive="active" (click)="sidebarService.close()">
+      <mat-icon matListItemIcon style="color: rgb(255, 255, 255); margin-left: 2vw;">menu_book</mat-icon>
+      <span matListItemTitle style="color: rgb(255, 255, 255);">Teachers</span>
+    </a>
+    <a mat-list-item (click)="sidebarService.close(); favoritesService.open()">
+      <mat-icon matListItemIcon style="color: rgb(255, 255, 255); margin-left: 2vw;">favorite</mat-icon>
+      <span matListItemTitle style="color: rgb(255, 255, 255);">Favorites</span>
+    </a>
+    <a mat-list-item (click)="sidebarService.close(); chatBotService.open()">
+      <mat-icon matListItemIcon style="color: rgb(255, 255, 255); margin-left: 2vw;">chat_bubble_outline</mat-icon>
+      <span matListItemTitle style="color: rgb(255, 255, 255);">Chat Bot</span>
+    </a>
+  </mat-nav-list>
+
+  <div>
+    <p style="margin-left: 3.5vw;">&copy; 2025 TuneHub Professional</p>
+  </div>
+</div>

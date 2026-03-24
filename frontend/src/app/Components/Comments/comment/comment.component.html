@@ -1,0 +1,28 @@
+<div class="comments-container" (scroll)="onScroll($event)">
+  @if(comments.length === 0){
+  <app-no-results></app-no-results>
+  }@else {
+
+<div *ngFor="let c of comments; trackBy: trackByCommentId" class="comment-item">
+    <div class="comment-header">
+      <img class="comment-avatar" [src]="fileUtilsService.getImageUrl(c.profile?.imageProfilePath || null)"
+        (click)="navigationService.goToProfile(c.profile?.id!)" alt="avatar" />
+      <div class="comment-user-info">
+        <span class="comment-username">{{ c.profile?.name }}</span>
+        <small class="comment-date">{{ c.dateUploaded | timeAgo }}</small>
+      </div>
+
+    </div>
+
+    <p class="comment-content">{{ c.content }}</p>
+    <span class="stat-item likes" (click)="toggleLike(c)">
+
+      <mat-icon style="color: #f0ff6c;" [ngClass]="c.isLiked ? 'liked' : 'not-liked'">
+        {{ c.isLiked ? 'thumb_up' : 'thumb_up_off_alt' }}
+      </mat-icon>
+      <span class="like-count">{{ c.likes }}</span>
+    </span>
+
+  </div>
+  }
+</div>

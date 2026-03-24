@@ -1,0 +1,18 @@
+<div class="profile-avatar-wrapper">
+  @if (currentUser$ | async; as user) {
+
+  <div class="profile-avatar-container" (click)="navigationService.goToProfile(user.id)">
+
+    @if (user.imageProfilePath) {
+    <img [src]="fileUtilsService.getImageUrl(user!.imageProfilePath!)" class="profile-picture">
+    }
+    @else {
+    <div class="profile-initials">
+      <span>{{ user.name ? user.name.charAt(0).toUpperCase() : '?' }}</span>
+    </div>
+    }
+
+    <div class="online-indicator"></div>
+  </div>
+  }
+</div>

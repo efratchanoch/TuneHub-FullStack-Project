@@ -1,0 +1,83 @@
+<div *ngIf="sheet" class="music-card">
+    <div class="sheet-cover-header">
+        <div class="cover-image">
+            <img [src]="getImageCoverPath(sheet)" class="file-preview-iframe" />
+        </div>
+    </div>
+
+    <!-- BADGES -->
+    <div class="badge-group">
+        <span class="badge category" *ngFor="let category of sheet.categories; let last = last"
+            title="{{ category.name }}">
+            <mat-icon>folder</mat-icon>
+            {{ category.name }}<span *ngIf="!last"> • </span>
+        </span>
+        <span class="badge difficulty {{ sheet.level }}">{{ sheet.level }}</span>
+    </div>
+
+    <!-- CARD CONTENT -->
+    <div class="card-content">
+        <h3 class="title" [innerHTML]="sheet.title! | highlight: searchText!"></h3>
+        <p class="artist-legacy">
+            <span class="artist-mini-profile" (click)="navigationService.goToProfile(sheet.user?.id!)">
+                <img [src]="fileUtilsService.getImageUrl(sheet.user?.imageProfilePath)" class="artist-mini-img"
+                    alt="Profile" />
+
+                <div class="profile-info-wrapper">
+                    <span>{{ sheet.user?.name }}</span>
+                    <div class="sheet-rating-container">
+                        <span class="rating-value">{{ sheet.rating | number:'1.1-1' }}</span>
+                        <div class="stars-wrapper">
+                            <mat-icon *ngFor="let starType of getStarArray(sheet.rating)"
+                                [ngClass]="{'filled-star': starType !== 'star_border'}">{{ starType }}</mat-icon>
+                        </div>
+                    </div>
+                </div>
+            </span>
+        </p>
+
+        <div class="details-row">
+            <div class="primary-tags">
+                <span class="detail-tag" *ngIf="sheet.composer">
+                    <mat-icon>person</mat-icon>
+                    Composer: {{ sheet.composer }}
+                </span>
+                <span class="detail-tag"><mat-icon>description</mat-icon>{{ sheet.pages }}</span>
+                <span class="detail-tag" *ngIf="sheet.lyricist">
+                    <mat-icon>mic</mat-icon>
+                    Lyricist: {{ sheet.lyricist }}
+                </span>
+
+
+                <span class="detail-tag"><mat-icon>music_note</mat-icon>{{ sheet.scale }}</span>
+
+                <span class="instrument-tags">
+                    <ng-container *ngFor="let instrument of sheet.instruments;">
+                        <span class="tag">{{ instrument.name }}</span>
+                    </ng-container>
+                </span>
+
+            </div>
+        </div>
+
+        <div class="stats-row">
+            <!-- <span class="stat-item"><mat-icon>download</mat-icon>{{ sheet.downloads }}</span> -->
+            <span class="stat-item likes" (click)="toggleLike(sheet)">
+                <mat-icon style="color:#f0ff6c" [ngClass]="sheet.liked ? 'liked' : 'not-liked'">
+                    {{ sheet.liked ? 'thumb_up' : 'thumb_up_off_alt' }}
+                </mat-icon>
+                <span class="like-count">{{ sheet.likes || 0}}</span>
+            </span>
+
+            <span class="stat-item hearts" (click)="toggleFavorite(sheet)">
+                <mat-icon style="color:#f85e5e" [ngClass]="sheet.favorite ? 'liked' : 'not-liked'">
+                    {{ sheet.favorite ? 'favorite' : 'favorite_border' }}
+                </mat-icon>
+                <span class="hearts-count">{{ sheet.hearts || 0}}</span>
+            </span>
+
+        </div>
+
+        <button class="button" (click)="goToSheetMusic(sheet)">View</button>
+    </div>
+</div>
